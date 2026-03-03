@@ -64,12 +64,14 @@ class _Aula1ContadorPageState extends State<Aula1ContadorPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               FloatingActionButton(
+                heroTag: 'increment',
                 onPressed: _viewModel.increment,
                 tooltip: 'Increment',
                 child: const Icon(Icons.add),
               ),
               const SizedBox(height: 10),
               FloatingActionButton(
+                heroTag: 'decrement',
                 onPressed: _viewModel.decrement,
                 tooltip: 'Decrement',
                 backgroundColor: Colors.red[100],
@@ -82,6 +84,7 @@ class _Aula1ContadorPageState extends State<Aula1ContadorPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               FloatingActionButton(
+                heroTag: 'multiply',
                 onPressed: _viewModel.multiply,
                 tooltip: 'Multiply',
                 backgroundColor: Colors.green[100],
@@ -92,6 +95,7 @@ class _Aula1ContadorPageState extends State<Aula1ContadorPage> {
               ),
               const SizedBox(height: 10),
               FloatingActionButton(
+                heroTag: 'divide',
                 onPressed: _viewModel.divide,
                 tooltip: 'Divide',
                 backgroundColor: Colors.yellow[100],
