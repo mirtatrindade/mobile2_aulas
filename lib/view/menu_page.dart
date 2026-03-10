@@ -4,6 +4,7 @@ import '../viewmodel/app_view_model.dart';
 import '../viewmodel/aula_acessibilidade_view_model.dart';
 import 'aula1_contador_page.dart';
 import 'aula_acessibilidade_page.dart';
+import 'aula_entrada_permissoes_page.dart';
 
 // =============================================================================
 // MENU DE AULAS — View (MVVM)
@@ -55,9 +56,9 @@ class MenuPage extends StatelessWidget {
           ListTile(
             title: const Text('Aula 1 — Contador'),
             subtitle: const Text(
-                'Revisão Flutter: StatefulWidget, setState, layout'),
-            leading: const CircleAvatar(
-                child: Icon(Icons.add_circle_outline)),
+              'Revisão Flutter: StatefulWidget, setState, layout',
+            ),
+            leading: const CircleAvatar(child: Icon(Icons.add_circle_outline)),
             onTap: () =>
                 _abrirAula(context, const Aula1ContadorPage(), 'Aula 1'),
           ),
@@ -75,6 +76,17 @@ class MenuPage extends StatelessWidget {
                 ),
               ),
               'Acessibilidade',
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text('Aula — Entrada e Permissões'),
+            subtitle: const Text('Permissões de câmera e localização'),
+            leading: const CircleAvatar(child: Icon(Icons.camera_alt)),
+            onTap: () => _abrirAula(
+              context,
+              const AulaEntradaPermissoesPage(),
+              'Entrada e Permissões',
             ),
           ),
         ],
