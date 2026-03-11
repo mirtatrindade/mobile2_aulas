@@ -123,7 +123,7 @@ class _AulaEntradaPermissoesPageState extends State<AulaEntradaPermissoesPage> {
                           // TODO: configurar textInputAction + onFieldSubmitted
                           textInputAction: TextInputAction.next,
                           onFieldSubmitted: (_) {
-                            // TODO: mudar foco para o campo de telefone
+                            // TODO: mudar foco para o campo de telefone - TESTE
                           },
                           validator: (v) {
                             // TODO: validar o e-mail (não vazio + conter '@')
