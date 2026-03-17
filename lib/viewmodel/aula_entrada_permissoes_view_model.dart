@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 // TODO: adicionar os imports abaixo quando for implementar as permissões
 // import 'package:geolocator/geolocator.dart';
 // import 'package:permission_handler/permission_handler.dart';
@@ -47,8 +50,21 @@ class AulaEntradaPermissoesViewModel extends ChangeNotifier {
     // 5. Marcar _cameraLoading como false e chamar notifyListeners().
     //
     // Por enquanto deixamos um texto fixo pra tela não quebrar.
-    _cameraLoading = false;
+    _cameraLoading = true;
     _cameraStatus = 'TODO: implementar requestCamera()';
+    notifyListeners();
+
+    _cameraLoading = false;
+    notifyListeners();
+
+    var status = await Permission.camera.request();
+
+    if (status.isGranted) {
+      _cameraStatus = 'Concedido';
+    } else {
+      _cameraStatus = 'Negado';
+    }
+
     notifyListeners();
   }
 
@@ -66,11 +82,50 @@ class AulaEntradaPermissoesViewModel extends ChangeNotifier {
     // 6. Marcar _locationLoading como false e chamar notifyListeners().
     //
     // Aqui também deixamos um texto fixo só pra app continuar rodando.
-    _locationLoading = false;
-    _locationStatus = 'TODO: implementar requestLocation()';
+    _locationLoading = true;
     notifyListeners();
-  }
+    
+    bool serviceEnabled;
+    LocationPermission permission;
 
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      _locationStatus = 'Localização desativada';
+      _locationLoading = false;
+      notifyListeners();
+      return;
+    }
+    permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+     permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.denied) {
+        _locationStatus = 'Permissão de localização negada';
+        _locationLoading = false;
+        notifyListeners();
+        return;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      _locationStatus = 'Permissão negada permanentemente';
+      _locationLoading = false;
+      notifyListeners();
+      return;
+    }
+  
+    
+  Position position = await Geolocator.getCurrentPosition();
+  
+  String lat = position.latitude.toStringAsFixed(4);
+  String lon = position.longitude.toStringAsFixed(4);
+
+  _locationStatus = 'Lat: $lat  Lon: $lon';
+
+  _locationLoading = false;
+  notifyListeners();
+}
   @override
   void dispose() {
     _nomeController.dispose();
@@ -79,3 +134,4 @@ class AulaEntradaPermissoesViewModel extends ChangeNotifier {
     super.dispose();
   }
 }
+
