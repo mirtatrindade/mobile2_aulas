@@ -51,7 +51,7 @@ class _Aula1ContadorPageState extends State<Aula1ContadorPage> {
             Text(
               '$counter',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: counter < 0 ? Colors.red : Colors.blue,
+                    color: counter < 0 ? Colors.red : Colors.green,
                   ),
             ),
           ],
